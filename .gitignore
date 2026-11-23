@@ -1,0 +1,19 @@
+# Compiled Java bytecode (we only save source code)
+*.class
+
+# Build output (Maven, Gradle, IntelliJ)
+target/
+build/
+out/
+
+# IDE: personal settings only (project files in .idea/ and *.iml ARE committed,
+# so the project opens the same way on both PCs)
+.idea/workspace.xml
+.idea/usage.statistics.xml
+.idea/shelf/
+.idea/tasks.xml
+.vscode/
+
+# OS junk
+Thumbs.db
+.DS_Store
