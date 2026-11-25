@@ -1,14 +1,15 @@
 package jobpilot;
 
 import java.util.Scanner;
-
+import java.util.List;
+import java.util.ArrayList;
 public class JobPilotApp {
     private static final int CAPACITY = 50;
 
     public static void main(String[] args) {
         int choice;
         Scanner scanner = new Scanner(System.in);
-        ApplicationTracker tracker = new ApplicationTracker(CAPACITY);
+        ApplicationTracker tracker = new ApplicationTracker();
         do {
             menu();
             System.out.print("Choose: ");
@@ -17,7 +18,7 @@ public class JobPilotApp {
                 case 1 -> {
                     Application app = tracker.add(addJobOffer(scanner));
                     if (app == null) {
-                        System.out.println("list is full. Or Could not save application because of Duplicate");
+                        System.out.println("Not added: this offer is already in your list.");
                     } else {
                         System.out.printf("Saved as #%d%n", app.getId());
                     }
@@ -84,8 +85,8 @@ public class JobPilotApp {
             System.out.println("Unknown status.");
             return;
         }
-        Application[] appByStatus = tracker.byStatus(status);
-        if (appByStatus.length == 0) {
+        List<Application> appByStatus = tracker.byStatus(status);
+        if (appByStatus.isEmpty()) {
             System.out.println("No applications with status " + status + ".");
         } else {
             for (Application app : appByStatus) {
@@ -96,7 +97,7 @@ public class JobPilotApp {
 
     public static void listAllApps(ApplicationTracker tracker) {
 
-        Application[] apps = tracker.all();
+        List<Application> apps = tracker.all();
         if (tracker.size() == 0) {
             System.out.println("No applications yet.");
         } else {
