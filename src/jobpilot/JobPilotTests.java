@@ -1,7 +1,6 @@
 package jobpilot;
 
 import java.util.List;
-import java.util.ArrayList;
 
 public class JobPilotTests {
     public static void main(String[] args) {
@@ -21,6 +20,7 @@ public class JobPilotTests {
         //ApplicationTracker JUNIT like tests
         check("JP-4 add returns the application", a1 != null && a1.getOffer().company().equals("NTT DATA")
                 && a3 != null && tracker.size() == 3);
+        check("JP-4 null offer refused", tracker.add(null) == null);
         check("JP-4 findById", tracker.findById(a2.getId()) == a2 && tracker.findById(-1) == null);
         check("JP-4 changeStatus", tracker.changeStatus(a1.getId(), Status.INTERVIEW) && a1.getStatus() == Status.INTERVIEW);
         check("JP-4 changeStatus refused", !tracker.changeStatus(a1.getId(), Status.APPLIED)

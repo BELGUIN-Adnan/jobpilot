@@ -69,13 +69,13 @@ public class ApplicationTracker {
     }
 
     public List<Application> byStatus(Status status) {
-        List<Application> result  = new ArrayList<>();
+        List<Application> result = new ArrayList<>();
         for (Application application : applications) {
             if (application.getStatus() == status) {
-                result .add(application);
+                result.add(application);
             }
         }
-        return result ;
+        return result;
     }
 
     public double responseRate() {
@@ -88,7 +88,7 @@ public class ApplicationTracker {
     public double averageSalary() {
         int averageSalary = 0;
         int count = 0;
-        for (Application application:applications) {
+        for (Application application : applications) {
             if (application.getOffer().hasSalary()) {
                 count++;
                 averageSalary += application.getOffer().salary();
@@ -101,12 +101,12 @@ public class ApplicationTracker {
     }
 
     public Application bestOffer() {
-       List<Application> offerApplication = byStatus(Status.OFFER);
+        List<Application> offerApplication = byStatus(Status.OFFER);
         if (offerApplication.isEmpty()) {
             return null;
         }
         Application best = null;
-        for (Application application:offerApplication) {
+        for (Application application : offerApplication) {
             if (best == null || application.getOffer().salary() > best.getOffer().salary()) {
                 best = application;
             }

@@ -2,9 +2,8 @@ package jobpilot;
 
 import java.util.Scanner;
 import java.util.List;
-import java.util.ArrayList;
+
 public class JobPilotApp {
-    private static final int CAPACITY = 50;
 
     public static void main(String[] args) {
         int choice;
