@@ -32,12 +32,12 @@ application's status (applied → interview → offer / rejected), and see stati
 
 ## Tests
 
-41 tests, written with a small `check(...)` method (JUnit comes in v2). They cover:
+47 tests, written with a small `check(...)` method (JUnit comes in v2). They cover:
 
 - the status rules (allowed moves, no going back, nothing after a final status)
 - the cleaning in `JobOffer` (spaces, negative salary)
-- duplicates, a full tracker, unknown ids
-- the statistics, including an empty tracker
+- duplicates, no capacity limit (50 000 offers), unknown ids
+- the statistics, including the count by status and an empty tracker
 
 ## Roadmap
 

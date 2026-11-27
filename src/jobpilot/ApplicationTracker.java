@@ -4,23 +4,19 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Set;
+import java.util.HashSet;
 
 public class ApplicationTracker {
 
     private final List<Application> applications = new ArrayList<>();
+    private final Set<OfferKey> keys = new HashSet<>();
 
     public Application add(JobOffer offer) {
-        if (offer == null) {
+        if (offer == null || !keys.add(OfferKey.from(offer))) {
             return null;
         }
-        for (Application application : applications) {
-            JobOffer existing = application.getOffer();
-            if (existing.title().equalsIgnoreCase(offer.title())
-                    && existing.company().equalsIgnoreCase(offer.company())
-                    && existing.city().equalsIgnoreCase(offer.city())) {
-                return null;
-            }
-        }
+
         Application newApp = new Application(offer);
         applications.add(newApp);
         return newApp;

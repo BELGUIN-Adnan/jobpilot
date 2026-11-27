@@ -2,6 +2,7 @@ package jobpilot;
 
 import java.util.List;
 import java.util.Map;
+
 public class JobPilotTests {
     public static void main(String[] args) {
         runTests();
@@ -113,7 +114,17 @@ public class JobPilotTests {
         check("JP-8 every status is there, even with 0", counts.size() == 4 && counts.get(Status.OFFER) == 0);
         check("JP-8 empty tracker", new ApplicationTracker().countByStatus().get(Status.REJECTED) == 0);
 
+        //JP-9: Fast duplicate check
+        check("JP-9 OfferKey ignores case and salary",
+                OfferKey.from(new JobOffer("Java Dev", "NTT", "Tetouan", 0))
+                        .equals(OfferKey.from(new JobOffer("JAVA DEV", "ntt", "tetouan", 9000))));
 
+        ApplicationTracker many = new ApplicationTracker();
+        for (int i = 1; i <= 50_000; i++) {
+            many.add(new JobOffer("Dev " + i, "Company", "Tetouan", 0));
+        }
+        check("JP-9 50 000 offers", many.size() == 50_000);
+        check("JP-9 duplicate still refused", many.add(new JobOffer("DEV 7", "company", "TETOUAN", 0)) == null);
 
 
     }
