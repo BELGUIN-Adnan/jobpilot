@@ -1,7 +1,7 @@
 package jobpilot;
 
 import java.util.List;
-
+import java.util.Map;
 public class JobPilotTests {
     public static void main(String[] args) {
         runTests();
@@ -102,6 +102,19 @@ public class JobPilotTests {
             big.add(new JobOffer("Developer " + i, "Company", "Tetouan", 0));
         }
         check("JP-7 no capacity limit", big.size() == 100);
+
+        //ApplicationTracker JP-8: Statistics in one pass
+        ApplicationTracker stats = new ApplicationTracker();
+        Application s1 = stats.add(new JobOffer("Dev A", "X", "Tetouan", 0));
+        stats.add(new JobOffer("Dev B", "Y", "Rabat", 0));
+        stats.changeStatus(s1.getId(), Status.INTERVIEW);
+        Map<Status, Integer> counts = stats.countByStatus();
+        check("JP-8 countByStatus", counts.get(Status.APPLIED) == 1 && counts.get(Status.INTERVIEW) == 1);
+        check("JP-8 every status is there, even with 0", counts.size() == 4 && counts.get(Status.OFFER) == 0);
+        check("JP-8 empty tracker", new ApplicationTracker().countByStatus().get(Status.REJECTED) == 0);
+
+
+
 
     }
 

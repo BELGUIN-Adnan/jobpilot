@@ -1,5 +1,7 @@
 package jobpilot;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.List;
 
@@ -125,8 +127,10 @@ public class JobPilotApp {
     }
 
     public static void statistics(ApplicationTracker tracker) {
+
+        Map<Status, Integer> count = (tracker.countByStatus());
         for (Status status : Status.values()) {
-            System.out.printf("%s: %d%n", status, tracker.count(status));
+            System.out.printf("%s: %d%n", status, count.get(status));
         }
         System.out.printf("Response rate: %.1f%%%n", tracker.responseRate());
         System.out.printf("Average known salary: %.2f MAD%n", tracker.averageSalary());

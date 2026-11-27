@@ -2,6 +2,8 @@ package jobpilot;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 
 public class ApplicationTracker {
 
@@ -113,4 +115,17 @@ public class ApplicationTracker {
         }
         return best;
     }
+
+    public Map<Status, Integer> countByStatus() {
+        Map<Status, Integer> result = new HashMap<>();
+        for (Status status : Status.values()) {
+            result.put(status, 0);
+        }
+        for (Application application : applications) {
+            Status status = application.getStatus();
+            result.put(status, result.get(status) + 1);
+        }
+        return result;
+    }
+
 }
